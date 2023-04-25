@@ -1,15 +1,14 @@
 import { Canvas } from '@react-three/fiber'
 import { Environment} from '@react-three/drei'
-import { Physics } from '@react-three/rapier'
 
 import { useState } from 'react'
 
-import Walls from './Walls'
-import Dice from './Dice'
+import Experience from './Experience'
 
 export default function Scene() {
 
     const [ dice, setDice ] = useState([])
+    const [ total, setTotal ] = useState(0)
 
     const throwDice = () => {
 
@@ -30,23 +29,21 @@ export default function Scene() {
                 <Environment preset={'city'} />
                 {/* <OrbitControls /> */}
 
-                <Physics>
-                    <Walls width={3} height={5} depth={2} />
-                    {
-                        dice.map((die) => (
-                            <Dice key={die.id} type={die.type} />
-                        ))
-                    }
-                </Physics>
+                <Experience dice={dice} total={total} setTotal={setTotal} />
             </Canvas>
 
-            <div className="absolute inset-0 p-4 pointer-events-none">
-                <button 
-                    className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
-                    onClick={throwDice}
-                    >
-                    Throw Dice
-                </button>
+            <div className="absolute inset-0  pointer-events-none">
+                <div className="w-full p-4 flex items-center justify-between">
+                    <button 
+                        className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                        onClick={throwDice}
+                        >
+                        Throw Dice
+                    </button>
+                    <div className="text-gray-900 rounded-lg p-2 bg-white">
+                        Total: {total}
+                    </div>
+                </div>
             </div>
         </>
     )
