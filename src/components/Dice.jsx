@@ -1,57 +1,30 @@
-import { useMemo, useRef, useEffect, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
-import { useGLTF } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier"
 
+export default function Dice({viewport, sides, total, setTotal, diceGlb}) {
 
-// const findClosestFace = (rotation, faces) => {
-//     let minDistance = Infinity;
-//     let closestFace;
+    return (
+        <D6
+            viewport={viewport}
+            diceGlb={diceGlb}
+            total={total}
+            setTotal={setTotal}
+        />
+    )
+}
 
-//     const rotationVector = new THREE.Vector3();
-//     rotationVector.x = rotation.x;
-//     rotationVector.y = rotation.y;
-//     rotationVector.z = rotation.z;
-
-//     console.log("rotationVector", rotationVector)
-  
-//     for (let i = 0; i < faces.length; i++) {
-//       const distance = rotationVector.distanceTo(faces[i]);
-  
-//       if (distance < minDistance) {
-//         minDistance = distance;
-//         closestFace = i;
-//       }
-
-//       console.log("Data", {
-//         i:i,
-//         d:distance,
-//         f:faces[i],
-//         m:minDistance,
-//       })
-//     }
-  
-//     return closestFace;
-//   }
-
-export default function Dice({viewport, sides, total, setTotal}) {
+export function D6({viewport, diceGlb, total, setTotal}) {
 
     const ref = useRef()
 
-    sides = sides ? sides : "6"
-
     const [ hasStopped, setHasStopped ] = useState(false)
 
-    const diceGlb = useGLTF('./glb/d'+sides+'.glb')
-
     const diceMesh = useMemo(() => {
-        console.log( diceGlb )
-
-        return diceGlb.nodes["D"+sides]
+        console.log("diceGlb", diceGlb)
+        return diceGlb["d6"].nodes["D6"]
     }, [diceGlb])
-
-    
 
     const xStrength = viewport.width
     const zStrength = viewport.height
@@ -80,14 +53,61 @@ export default function Dice({viewport, sides, total, setTotal}) {
             // Check which face is up and add dice number to total
             if ( !hasStopped ) {
 
+                console.log("Ref", ref.current)
+
                 const rot = ref.current.rotation()
 
                 console.log("Rotation", rot)
 
+                let faceValue = 0
+                let highestY = -Infinity
+
+                ghostObjects.forEach((ghostObject, index) => {
+                    console.log("Ghost Object", ghostObject.position)
+
+                    const localPos = new THREE.Vector3().copy(ghostObject.position)
+                    localPos.applyQuaternion(rot)
+
+                    console.log("Local Position", localPos)
+
+                    if (localPos.y > highestY) {
+                        faceValue = index + 1
+                        highestY = localPos.y
+                    }
+                });
+
+
+                console.log(`Face with highest Y value: ${faceValue}`);
+                setTotal((prevTotal) => prevTotal + faceValue);
                 setHasStopped(true)
             }
         }
     })
+
+
+    const facePosition = useMemo(() => {
+        return [
+            [0.25, 0, 0],  // 1
+            [0, 0, -0.25], // 2
+            [0, 0.25, 0],  // 3
+            [0, -0.25, 0], // 4
+            [0, 0, 0.25], // 5
+            [-0.25, 0, 0] //  6
+            ]
+    }, [])
+
+    const ghostObjects = useMemo(() => {
+        return facePosition.map((position, index) => {
+            const ghostObject = new THREE.Object3D();
+            ghostObject.name = `face_${index + 1}`;
+            ghostObject.position.set(...position);
+            ghostObject.rotation.set(0, 0, 0);
+            ghostObject.updateMatrix();
+
+            return ghostObject;
+        });
+      }, [facePosition]);
+
 
     return (
         <RigidBody 
@@ -104,7 +124,14 @@ export default function Dice({viewport, sides, total, setTotal}) {
                 castShadow
                 >
             </mesh>
+
+            {ghostObjects.map((ghostObject, index) => (
+                <primitive
+                key={index}
+                object={ghostObject}
+                />
+            ))}
+
         </RigidBody>
     )
-
 }
