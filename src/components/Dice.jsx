@@ -35,19 +35,23 @@ import { RigidBody } from "@react-three/rapier"
 //     return closestFace;
 //   }
 
-export default function Dice({viewport, total, setTotal}) {
+export default function Dice({viewport, sides, total, setTotal}) {
 
     const ref = useRef()
 
+    sides = sides ? sides : "6"
+
     const [ hasStopped, setHasStopped ] = useState(false)
 
-    const diceGlb = useGLTF('./glb/d6.glb')
+    const diceGlb = useGLTF('./glb/d'+sides+'.glb')
 
     const diceMesh = useMemo(() => {
         console.log( diceGlb )
 
-        return diceGlb.nodes.D6
+        return diceGlb.nodes["D"+sides]
     }, [diceGlb])
+
+    
 
     const xStrength = viewport.width
     const zStrength = viewport.height

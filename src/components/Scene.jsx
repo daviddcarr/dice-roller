@@ -10,15 +10,49 @@ export default function Scene() {
     const [ dice, setDice ] = useState([])
     const [ total, setTotal ] = useState(0)
 
-    const throwDice = () => {
-
-        const newDice = {
+    const throwD4 = () => {
+        setDice([...dice, {
             id: Date.now(),
-            type: 'D6',
-        }
-
-        setDice([...dice, newDice])
+            sides: '4',
+        }])
     }
+
+    const throwD6 = () => {
+        setDice([...dice, {
+            id: Date.now(),
+            sides: '6',
+        }])
+    }
+
+    const throwD8 = () => {
+        setDice([...dice, {
+            id: Date.now(),
+            sides: '8',
+        }])
+    }
+
+    const throwD10 = () => {
+        setDice([...dice, {
+            id: Date.now(),
+            sides: '10',
+        }])
+    }
+
+    const throwD12 = () => {
+        setDice([...dice, {
+            id: Date.now(),
+            sides: '12',
+        }])
+    }
+
+    const throwD20 = () => {
+        setDice([...dice, {
+            id: Date.now(),
+            sides: '20',
+        }])
+    }
+
+
 
     return (
         <>
@@ -44,12 +78,47 @@ export default function Scene() {
 
             <div className="absolute inset-0  pointer-events-none">
                 <div className="w-full p-4 flex items-center justify-between">
-                    <button 
-                        className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
-                        onClick={throwDice}
-                        >
-                        Throw Dice
-                    </button>
+                    <div className='flex space-x-4'>
+                        <button 
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD4}
+                            >
+                            D4
+                        </button>
+                        <button
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD6}
+                            >
+                            D6
+                        </button>
+                        <button
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD8}
+                            >
+                            D8
+                        </button>
+                        {/* <button
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD10}
+                            >
+                            D10
+                        </button> */}
+                        <button
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD12}
+                            >
+                            D12
+                        </button>
+                        <button
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD20}
+                            >
+                            D20
+                        </button>
+
+
+
+                    </div>
                     <div className="text-gray-900 rounded-lg p-2 bg-white">
                         Total: {total}
                     </div>

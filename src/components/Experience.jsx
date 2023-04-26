@@ -17,7 +17,7 @@ export default function Experience({ dice, total, setTotal }) {
                 <Walls width={3} height={5} depth={2} viewport={viewport} />
                 {
                     dice.map((die) => (
-                        <Dice key={die.id} type={die.type} viewport={viewport} total={total} setTotal={setTotal} />
+                        <Dice key={die.id} sides={die.sides} viewport={viewport} total={total} setTotal={setTotal} />
                     ))
                 }
             </Physics>
