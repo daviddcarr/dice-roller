@@ -79,30 +79,26 @@ export default function Scene() {
             <div className="absolute inset-0  pointer-events-none">
                 <div className="w-full p-4 flex items-center justify-between">
                     <div className='flex space-x-4'>
-                        {/* <button 
+                        <button 
                             className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
                             onClick={throwD4}
                             >
                             D4
-                        </button> */}
+                        </button>
                         <button
                             className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
                             onClick={throwD6}
                             >
-                            Throw D6
+                            D6
                         </button>
-                        {/* <button
-                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
-                            onClick={throwD8}
-                            >
-                            D8
-                        </button>
+                        
+                        {/*
                         <button
                             className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
                             onClick={throwD10}
                             >
                             D10
-                        </button>
+                        </button> */}
                         <button
                             className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
                             onClick={throwD12}
@@ -114,7 +110,7 @@ export default function Scene() {
                             onClick={throwD20}
                             >
                             D20
-                        </button> */}
+                        </button>
 
 
 

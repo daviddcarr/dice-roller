@@ -3,19 +3,22 @@ import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
 import { RigidBody } from "@react-three/rapier"
 
-export default function Dice({viewport, sides, total, setTotal, diceGlb}) {
+import { diceFaces } from "../data/diceFaces"
 
-    return (
-        <D6
-            viewport={viewport}
-            diceGlb={diceGlb}
-            total={total}
-            setTotal={setTotal}
-        />
-    )
-}
+// export default function Dice({viewport, sides, total, setTotal, diceGlb}) {
 
-export function D6({viewport, diceGlb, total, setTotal}) {
+//     return (
+//         <D6
+//             viewport={viewport}
+//             diceGlb={diceGlb}
+//             total={total}
+//             setTotal={setTotal}
+//             sides={20}
+//         />
+//     )
+// }
+
+export default function Dice({viewport, diceGlb, setTotal, sides}) {
 
     const ref = useRef()
 
@@ -23,8 +26,8 @@ export function D6({viewport, diceGlb, total, setTotal}) {
 
     const diceMesh = useMemo(() => {
         console.log("diceGlb", diceGlb)
-        return diceGlb["d6"].nodes["D6"]
-    }, [diceGlb])
+        return diceGlb["d"+sides].nodes["D"+sides]
+    }, [diceGlb, sides])
 
     const xStrength = viewport.width
     const zStrength = viewport.height
@@ -50,7 +53,7 @@ export function D6({viewport, diceGlb, total, setTotal}) {
         const vel = ref.current.linvel()
         const velVector = new THREE.Vector3(vel.x, vel.y, vel.z)
         if ( ref.current && velVector.length() < 0.01) {
-            // Check which face is up and add dice number to total
+            
             if ( !hasStopped ) {
 
                 console.log("Ref", ref.current)
@@ -62,13 +65,14 @@ export function D6({viewport, diceGlb, total, setTotal}) {
                 let faceValue = 0
                 let highestY = -Infinity
 
-                ghostObjects.forEach((ghostObject, index) => {
-                    console.log("Ghost Object", ghostObject.position)
 
-                    const localPos = new THREE.Vector3().copy(ghostObject.position)
+                diceFaces["d"+sides].forEach((face, index) => {
+
+                    const facePos = new THREE.Vector3(face[0], face[1], face[2])
+
+                    const localPos = new THREE.Vector3().copy(facePos)
                     localPos.applyQuaternion(rot)
 
-                    console.log("Local Position", localPos)
 
                     if (localPos.y > highestY) {
                         faceValue = index + 1
@@ -85,30 +89,6 @@ export function D6({viewport, diceGlb, total, setTotal}) {
     })
 
 
-    const facePosition = useMemo(() => {
-        return [
-            [0.25, 0, 0],  // 1
-            [0, 0, -0.25], // 2
-            [0, 0.25, 0],  // 3
-            [0, -0.25, 0], // 4
-            [0, 0, 0.25], // 5
-            [-0.25, 0, 0] //  6
-            ]
-    }, [])
-
-    const ghostObjects = useMemo(() => {
-        return facePosition.map((position, index) => {
-            const ghostObject = new THREE.Object3D();
-            ghostObject.name = `face_${index + 1}`;
-            ghostObject.position.set(...position);
-            ghostObject.rotation.set(0, 0, 0);
-            ghostObject.updateMatrix();
-
-            return ghostObject;
-        });
-      }, [facePosition]);
-
-
     return (
         <RigidBody 
             ref={ref} 
@@ -118,19 +98,14 @@ export function D6({viewport, diceGlb, total, setTotal}) {
             linearVelocity={initialVelociy}
             angularVelocity={initialAngularVelocity}
             >
-            <mesh
-                geometry={diceMesh.geometry}
-                material={diceMesh.material}
-                castShadow
-                >
-            </mesh>
-
-            {ghostObjects.map((ghostObject, index) => (
-                <primitive
-                key={index}
-                object={ghostObject}
-                />
-            ))}
+            { sides !== 10  && (
+                <mesh
+                    geometry={diceMesh.geometry}
+                    material={diceMesh.material}
+                    castShadow
+                    >
+                </mesh>
+            )}
 
         </RigidBody>
     )
