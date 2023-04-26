@@ -71,7 +71,7 @@ export default function Scene() {
                     shadow-camera-left={ - 10 }
                     />
                 <Environment preset={'city'} />
-                <OrbitControls />
+                {/* <OrbitControls /> */}
 
                 <Experience dice={dice} total={total} setTotal={setTotal} />
             </Canvas>
