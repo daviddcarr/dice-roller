@@ -5,18 +5,6 @@ import { RigidBody } from "@react-three/rapier"
 
 import { diceFaces } from "../data/diceFaces"
 
-// export default function Dice({viewport, sides, total, setTotal, diceGlb}) {
-
-//     return (
-//         <D6
-//             viewport={viewport}
-//             diceGlb={diceGlb}
-//             total={total}
-//             setTotal={setTotal}
-//             sides={20}
-//         />
-//     )
-// }
 
 export default function Dice({viewport, diceGlb, setTotal, sides}) {
 
@@ -55,16 +43,10 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
         if ( ref.current && velVector.length() < 0.01) {
             
             if ( !hasStopped ) {
-
-                console.log("Ref", ref.current)
-
                 const rot = ref.current.rotation()
-
-                console.log("Rotation", rot)
 
                 let faceValue = 0
                 let highestY = -Infinity
-
 
                 diceFaces["d"+sides].forEach((face, index) => {
 
@@ -80,8 +62,6 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
                     }
                 });
 
-
-                console.log(`Face with highest Y value: ${faceValue}`);
                 setTotal((prevTotal) => prevTotal + faceValue);
                 setHasStopped(true)
             }
@@ -97,6 +77,7 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
             position={[0, 2, 0]}
             linearVelocity={initialVelociy}
             angularVelocity={initialAngularVelocity}
+            friction={0.2}
             >
             { sides !== 10  && (
                 <mesh

@@ -7,7 +7,8 @@ import { Physics } from '@react-three/rapier'
 import Walls from './Walls'
 import Dice from './Dice'
 
-import { D6 } from './Dice'
+import D10 from './D10'
+
 
 
 export default function Experience({ dice, total, setTotal }) {
@@ -33,6 +34,7 @@ export default function Experience({ dice, total, setTotal }) {
                         <Dice viewport={viewport} sides={die.sides} total={total} setTotal={setTotal} diceGlb={diceGlb} />      
                     ))
                 }
+                {/* <D10 /> */}
             </Physics>
         </>
     )

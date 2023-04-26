@@ -95,14 +95,18 @@ export default function Scene() {
                             >
                             D6
                         </button>
-                        
-                        {/*
+                        <button
+                            className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
+                            onClick={throwD8}
+                            >
+                            D8
+                        </button>
                         <button
                             className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
                             onClick={throwD10}
                             >
                             D10
-                        </button> */}
+                        </button>
                         <button
                             className="pointer-events-auto p-2 bg-gray-800 rounded-lg text-white hover:bg-purple-500"
                             onClick={throwD12}
