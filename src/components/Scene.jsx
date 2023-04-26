@@ -52,6 +52,10 @@ export default function Scene() {
         }])
     }
 
+    const clearDice = () => {
+        setDice([])
+        setTotal(0)
+    }
 
 
     return (
@@ -115,6 +119,14 @@ export default function Scene() {
 
 
                     </div>
+                </div>
+
+                <div className='absolute bottom-0 left-0 p-4 text-gray-900 w-full flex justify-between'>
+                    <button className='pointer-events-auto p-2 bg-red-400 rounded-lg text-white hover:bg-purple-500' onClick={clearDice}>
+                        Clear
+                    </button>
+
+
                     <div className="text-gray-900 rounded-lg p-2 bg-white">
                         Total: {total}
                     </div>
