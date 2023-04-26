@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { Environment} from '@react-three/drei'
+import { Environment, OrbitControls} from '@react-three/drei'
 
 import { useState } from 'react'
 
@@ -24,10 +24,20 @@ export default function Scene() {
         <>
             <Canvas
                 camera={{ position: [0, 10, 0], fov: 50 }}
+                shadows
                 >
-                <ambientLight intensity={0.5} />
+                <directionalLight 
+                    castShadow 
+                    position={ [ 0, 2, 1 ] } 
+                    intensity={ 1 } 
+                    shadow-normalBias={ 0.04 } // This setting fixes the shadow acne problem when multiple objects are casting shadows on each other.
+                    shadow-camera-top={ 10 }
+                    shadow-camera-right={ 10 }
+                    shadow-camera-bottom={ - 10 }
+                    shadow-camera-left={ - 10 }
+                    />
                 <Environment preset={'city'} />
-                {/* <OrbitControls /> */}
+                <OrbitControls />
 
                 <Experience dice={dice} total={total} setTotal={setTotal} />
             </Canvas>

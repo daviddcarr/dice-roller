@@ -11,33 +11,33 @@ export default function Walls({ viewport }) {
     return (
         <RigidBody type="fixed">
             {/*Top Mesh */}
-            <mesh position={[0, -depth / 2, height / 2]}>
+            <mesh receiveShadow position={[0, -depth / 2, height / 2]}>
                 <boxGeometry args={[width, 10, 0.5]} />
-                <meshStandardMaterial color={'#ff0000'} />
+                <meshStandardMaterial color="brown" />
             </mesh>
 
             {/* Bottom Mesh */}
-            <mesh position={[0, -depth / 2, -height / 2]}>
+            <mesh receiveShadow position={[0, -depth / 2, -height / 2]}>
                 <boxGeometry args={[width, 10, 0.5]} />
-                <meshStandardMaterial color={'#ff00ff'} />
+                <meshStandardMaterial color="brown" />
             </mesh>
 
             {/* Left Mesh */}
-            <mesh position={[-width / 2, -depth / 2, 0]}>
+            <mesh receiveShadow position={[-width / 2, -depth / 2, 0]}>
                 <boxGeometry args={[0.5, 10, height]} />
-                <meshStandardMaterial color={'#00ff00'} />
+                <meshStandardMaterial color="brown" />
             </mesh>
 
             {/* Right Mesh */}
-            <mesh position={[width / 2, -depth / 2, 0]}>
+            <mesh receiveShadow position={[width / 2, -depth / 2, 0]}>
                 <boxGeometry args={[0.5, 10, height]} />
-                <meshStandardMaterial color={'#0000ff'} />
+                <meshStandardMaterial color="brown" />
             </mesh>
 
             {/* Floor Mesh */}
-            <mesh position={[0, -depth, 0]}>
+            <mesh position={[0, -depth, 0]} receiveShadow>
                 <boxGeometry args={[width, 0.5, height]} />
-                <meshStandardMaterial color={'#00ffff'} />
+                <meshStandardMaterial color="greenyellow" />
             </mesh>
         </RigidBody>
     )

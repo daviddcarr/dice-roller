@@ -1,38 +1,39 @@
 import { useMemo, useRef, useEffect, useState } from "react"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
+import { useGLTF } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier"
 
 
-const findClosestFace = (rotation, faces) => {
-    let minDistance = Infinity;
-    let closestFace;
+// const findClosestFace = (rotation, faces) => {
+//     let minDistance = Infinity;
+//     let closestFace;
 
-    const rotationVector = new THREE.Vector3();
-    rotationVector.x = rotation.x;
-    rotationVector.y = rotation.y;
-    rotationVector.z = rotation.z;
+//     const rotationVector = new THREE.Vector3();
+//     rotationVector.x = rotation.x;
+//     rotationVector.y = rotation.y;
+//     rotationVector.z = rotation.z;
 
-    console.log("rotationVector", rotationVector)
+//     console.log("rotationVector", rotationVector)
   
-    for (let i = 0; i < faces.length; i++) {
-      const distance = rotationVector.distanceTo(faces[i]);
+//     for (let i = 0; i < faces.length; i++) {
+//       const distance = rotationVector.distanceTo(faces[i]);
   
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestFace = i;
-      }
+//       if (distance < minDistance) {
+//         minDistance = distance;
+//         closestFace = i;
+//       }
 
-      console.log("Data", {
-        i:i,
-        d:distance,
-        f:faces[i],
-        m:minDistance,
-      })
-    }
+//       console.log("Data", {
+//         i:i,
+//         d:distance,
+//         f:faces[i],
+//         m:minDistance,
+//       })
+//     }
   
-    return closestFace;
-  }
+//     return closestFace;
+//   }
 
 export default function Dice({viewport, total, setTotal}) {
 
@@ -40,16 +41,13 @@ export default function Dice({viewport, total, setTotal}) {
 
     const [ hasStopped, setHasStopped ] = useState(false)
 
-    const faceRotations = useMemo(() => {        
-        return [
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, Math.PI, 0),
-            new THREE.Vector3(Math.PI / 2, 0, 0),
-            new THREE.Vector3(-Math.PI / 2, 0, 0),
-            new THREE.Vector3(0, 0, Math.PI / 2),
-            new THREE.Vector3(0, 0, -Math.PI / 2)
-        ]
-    }, [])
+    const diceGlb = useGLTF('./glb/d6.glb')
+
+    const diceMesh = useMemo(() => {
+        console.log( diceGlb )
+
+        return diceGlb.nodes.D6
+    }, [diceGlb])
 
     const xStrength = viewport.width
     const zStrength = viewport.height
@@ -80,9 +78,7 @@ export default function Dice({viewport, total, setTotal}) {
 
                 const rot = ref.current.rotation()
 
-                const closestFace = findClosestFace(rot, faceRotations)
-               
-                setTotal((total) => total + (closestFace + 1))
+                console.log("Rotation", rot)
 
                 setHasStopped(true)
             }
@@ -93,13 +89,16 @@ export default function Dice({viewport, total, setTotal}) {
         <RigidBody 
             ref={ref} 
             type="dynamic"
+            colliders="trimesh"
             position={[0, 2, 0]}
             linearVelocity={initialVelociy}
             angularVelocity={initialAngularVelocity}
             >
-            <mesh>
-                <boxGeometry args={[1, 1, 1]} />
-                <meshStandardMaterial color={'#ff0000'} />
+            <mesh
+                geometry={diceMesh.geometry}
+                material={diceMesh.material}
+                castShadow
+                >
             </mesh>
         </RigidBody>
     )
