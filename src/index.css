@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
-  padding-bottom: env(safe-area-inset-bottom);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
