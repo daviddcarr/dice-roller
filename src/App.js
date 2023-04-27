@@ -4,7 +4,7 @@ import Scene from './components/Scene'
 
 function App() {
   return (
-    <div className="fixed inset-0">
+    <div className="fixed inset-0 bg-gray-900">
 
       <Scene />
 

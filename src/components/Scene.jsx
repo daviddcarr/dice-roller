@@ -37,25 +37,27 @@ export default function Scene() {
 
     return (
         <>
-            <Canvas
-                camera={{ position: [0, 10, 0], fov: 50 }}
-                shadows
-                >
-                <directionalLight 
-                    castShadow 
-                    position={ [ 1, 2, 0.5 ] } 
-                    intensity={ 0.75 } 
-                    shadow-normalBias={ 0.04 }
-                    shadow-camera-top={ 10 }
-                    shadow-camera-right={ 10 }
-                    shadow-camera-bottom={ - 10 }
-                    shadow-camera-left={ - 10 }
-                    />
-                <Environment preset={'apartment'} />
-                {/* <OrbitControls /> */}
+            <div className="h-[calc(100%-70px)]">
+                <Canvas
+                    camera={{ position: [0, 10, 0], fov: 50 }}
+                    shadows
+                    >
+                    <directionalLight 
+                        castShadow 
+                        position={ [ 1, 2, 0.5 ] } 
+                        intensity={ 0.75 } 
+                        shadow-normalBias={ 0.04 }
+                        shadow-camera-top={ 10 }
+                        shadow-camera-right={ 10 }
+                        shadow-camera-bottom={ - 10 }
+                        shadow-camera-left={ - 10 }
+                        />
+                    <Environment preset={'apartment'} />
+                    {/* <OrbitControls /> */}
 
-                <Experience dice={dice} total={total} setTotal={setTotal} />
-            </Canvas>
+                    <Experience dice={dice} total={total} setTotal={setTotal} />
+                </Canvas>
+            </div>
 
             <Interface 
                     throwingDice={throwingDice}

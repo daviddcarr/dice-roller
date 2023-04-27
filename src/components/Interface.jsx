@@ -81,16 +81,20 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
                 </div>
             </div>
 
-            <div className='absolute bottom-0 left-0 p-4 w-full flex justify-between'>
+            <div className='absolute bottom-0 left-0 p-4 w-full flex justify-between bg-gray-900'>
                 <button className='pointer-events-auto p-2 bg-red-700 rounded-lg text-white hover:bg-red-400' onClick={clearDice} disabled={dice.length === 0}>
                     Clear
                 </button>
 
 
                 <div className="relative flex space-x-2">
-                    <button className="pointer-events-auto bg-gray-600 text-white p-2 rounded-lg hover:bg-purple-500" onClick={() => setShowTotals(!showTotals)}>
-                        { showTotals ? 'Hide' : 'Show'} History
-                    </button>
+                    {
+                        totals.length > 0 && (
+                            <button className="pointer-events-auto bg-gray-600 text-white p-2 rounded-lg hover:bg-purple-500" onClick={() => setShowTotals(!showTotals)}>
+                                { showTotals ? 'Hide' : 'Show'} History
+                            </button>
+                        )
+                    }
 
                     <div className="text-gray-900 rounded-lg p-2 bg-white ">
                         Total: {total}
@@ -98,7 +102,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
 
                     {
                         showTotals && (
-                            <div className="absolute bottom-[calc(100%+20px)] right-0 flex items-end flex-col space-y-2">
+                            <div className="absolute bottom-[calc(100%+30px)] right-0 flex items-end flex-col space-y-2">
                                 {
                                     totals.map((total, index) => {
 
