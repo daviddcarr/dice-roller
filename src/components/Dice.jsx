@@ -19,16 +19,16 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
     const xStrength = viewport.width
     const zStrength = viewport.height
 
-    const initialVelociy = useMemo(() => {
+    const [initialVelociy, setInitialVelocity] = useState(() => {
         const velocity = new THREE.Vector3()
         velocity.x = Math.random() * xStrength - (xStrength / 2)
         velocity.y = Math.random() * 2 - 1
         velocity.z = Math.random() * zStrength - (zStrength / 2)
 
         return velocity
-    }, [xStrength, zStrength])
+    })
 
-    const initialAngularVelocity = useMemo(() => {
+    const [initialAngularVelocity, setInitialAngularVelocity] = useState(() => {
         const velocity = new THREE.Vector3()
         velocity.x = Math.random() * 10 - 5
         velocity.y = Math.random() * 10 - 5
@@ -63,6 +63,9 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
 
                 setTotal((prevTotal) => prevTotal + faceValue);
                 setHasStopped(true)
+
+                setInitialAngularVelocity(new THREE.Vector3(0, 0, 0))
+                setInitialVelocity(new THREE.Vector3(0, 0, 0))
             }
         }
     })
