@@ -6,7 +6,7 @@ export default function D10() {
     const gltf = useGLTF('./glb/d100.glb')
 
     const test = useMemo(() => {
-        console.log(gltf)
+        // console.log(gltf)
 
         return gltf
     }, [gltf])

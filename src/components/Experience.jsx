@@ -9,8 +9,6 @@ import Dice from './Dice'
 
 import D10 from './D10'
 
-
-
 export default function Experience({ dice, total, setTotal }) {
 
     const [ viewport ] = useThree((state) => [state.viewport])
@@ -27,7 +25,10 @@ export default function Experience({ dice, total, setTotal }) {
 
     return (
         <>
-            <Physics>
+            <Physics
+                timeSet="vary"
+                timeStep="vary"
+                >
                 <Walls width={3} height={5} depth={2} viewport={viewport} />
                 {
                     dice.map((die) => (

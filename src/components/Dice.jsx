@@ -3,7 +3,7 @@ import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
 import { RigidBody } from "@react-three/rapier"
 
-import { diceFaces } from "../data/diceFaces"
+import { diceFaces, colors } from "../data/diceFaces"
 
 
 export default function Dice({viewport, diceGlb, setTotal, sides}) {
@@ -13,7 +13,6 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
     const [ hasStopped, setHasStopped ] = useState(false)
 
     const diceMesh = useMemo(() => {
-        console.log("diceGlb", diceGlb)
         return diceGlb["d"+sides].nodes["D"+sides]
     }, [diceGlb, sides])
 
@@ -79,14 +78,25 @@ export default function Dice({viewport, diceGlb, setTotal, sides}) {
             angularVelocity={initialAngularVelocity}
             friction={0.2}
             >
-            { sides !== 10  && (
-                <mesh
-                    geometry={diceMesh.geometry}
-                    material={diceMesh.material}
-                    castShadow
-                    >
-                </mesh>
-            )}
+            <mesh
+                geometry={diceMesh.geometry}
+                material={diceMesh.material}
+                castShadow
+                >
+            </mesh>
+
+            {/* { 
+                // Used for checking face positions
+                diceFaces["d"+sides].map((face, index) => (
+                    <mesh
+                        key={index}
+                        position={face}
+                        >
+                        <boxBufferGeometry args={[0.025, 0.025, 0.025]} />
+                        <meshBasicMaterial color={colors[index]} />
+                    </mesh>
+                ))
+            } */}
 
         </RigidBody>
     )

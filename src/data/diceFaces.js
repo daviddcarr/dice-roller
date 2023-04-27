@@ -57,7 +57,7 @@ export const diceFaces = {
         [0, 0.27, -0.1], // 5
         [-0.1, 0, 0.27], // 6
         [0.27, 0.1, 0], // 7
-        [0, -0.27, 0.1], // 8
+        [0, -0.27, -0.1], // 8
         [-0.17, -0.17, 0.17], // 9
         [0.17, -0.17, -0.17], // 10
         [-0.17, 0.17, 0.17], // 11
@@ -85,3 +85,26 @@ export const diceFaces = {
     ],
     
 }
+
+export const colors = [
+    "maroon", // 1
+    "red", // 2
+    "orange", // 3
+    "yellow", // 4
+    "lime", // 5
+    "green", // 6
+    "teal", // 7
+    "cyan", // 8
+    "blue", // 9
+    "purple", // 10
+    "magenta", // 11
+    "pink", // 12
+    "white", // 13
+    "black", // 14
+    "gray", // 15
+    "brown", // 16
+    "tan", // 17
+    "olive", // 18
+    "navy", // 19
+    "aquamarine", // 20
+]
