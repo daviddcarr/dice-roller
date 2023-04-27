@@ -4,7 +4,7 @@ import Scene from './components/Scene'
 
 function App() {
   return (
-    <div className="h-screen w-full">
+    <div className="fixed inset-0">
 
       <Scene />
 

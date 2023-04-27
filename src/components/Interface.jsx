@@ -30,7 +30,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
     }
 
     return (
-        <div className="absolute inset-0  pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none">
             <div className="w-full p-4 flex items-center justify-center">
                 <div className='flex space-x-4'>
                     <button 
@@ -98,7 +98,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
 
                     {
                         showTotals && (
-                            <div className="absolute bottom-[calc(100%+40px)] right-0 flex items-end flex-col space-y-2">
+                            <div className="absolute bottom-[calc(100%+20px)] right-0 flex items-end flex-col space-y-2">
                                 {
                                     totals.map((total, index) => {
 
