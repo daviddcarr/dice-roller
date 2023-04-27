@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { Environment, OrbitControls} from '@react-three/drei'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 
 import { useState } from 'react'
 
@@ -54,6 +55,11 @@ export default function Scene() {
                         />
                     <Environment preset={'apartment'} />
                     {/* <OrbitControls /> */}
+
+                    <EffectComposer>
+                        <Bloom intensity={0.8} luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+                        <Vignette eskil={false} offset={0.1} darkness={0.7} />
+                    </EffectComposer>
 
                     <Experience dice={dice} total={total} setTotal={setTotal} />
                 </Canvas>
