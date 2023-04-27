@@ -81,7 +81,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
                 </div>
             </div>
 
-            <div className='absolute bottom-0 left-0 p-4 w-full flex justify-between h-[70px] bg-gray-800'>
+            <div className='absolute bottom-0 left-0 p-4 w-full flex justify-between'>
                 <button className='pointer-events-auto p-2 bg-red-700 rounded-lg text-white hover:bg-red-400' onClick={clearDice} disabled={dice.length === 0}>
                     Clear
                 </button>
