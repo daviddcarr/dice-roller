@@ -3,6 +3,13 @@ import { useState, useMemo } from 'react'
 export default function Interface({ throwingDice, throwDice, clearDice, total, totals, dice }) {
 
     const [ showTotals, setShowTotals ] = useState(false)
+    const [ showClearWarning, setShowClearWarning ] = useState(false)
+
+    const availableDice = useMemo(() => {
+        return [
+            4, 6, 8, 10, 12, 20
+        ]
+    }, [])
 
     const calculateDiceRolls = (dice) => {
         let diceCounts = {
@@ -31,58 +38,9 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
 
     return (
         <div className="absolute inset-0 pointer-events-none">
-            <div className="w-full p-4 flex items-center justify-center">
-                <div className='flex space-x-4'>
-                    <button 
-                        className={`pointer-events-auto h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
-                        disabled={throwingDice}
-                        onClick={() => throwDice('4')}
-                        >
-                        D4
-                    </button>
-                    <button
-                        className={`pointer-events-auto h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
-                        disabled={throwingDice}
-                        onClick={() => throwDice('6')}
-                        >
-                        D6
-                    </button>
-                    <button
-                        className={`pointer-events-auto h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
-                        disabled={throwingDice}
-                        onClick={() => throwDice('8')}
-                        >
-                        D8
-                    </button>
-                    <button
-                        className={`pointer-events-auto h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
-                        disabled={throwingDice}
-                        onClick={() => throwDice('10')}
-                        >
-                        D10
-                    </button>
-                    <button
-                        className={`pointer-events-auto h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
-                        disabled={throwingDice}
-                        onClick={() => throwDice('12')}
-                        >
-                        D12
-                    </button>
-                    <button
-                        className={`pointer-events-auto h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
-                        disabled={throwingDice}
-                        onClick={() => throwDice('20')}
-                        >
-                        D20
-                    </button>
-
-
-
-                </div>
-            </div>
-
-            <div className='absolute bottom-0 left-0 p-4 w-full flex justify-between bg-gray-900'>
-                <button className='pointer-events-auto p-2 bg-red-700 rounded-lg text-white hover:bg-red-400' onClick={clearDice} disabled={dice.length === 0}>
+            {/* Info Bar */}
+            <div className='absolute top-0 left-0 p-2 w-full flex justify-between bg-gray-900'>
+                <button className='pointer-events-auto px-2 py-1 bg-red-700 rounded-lg text-white hover:bg-red-400' onClick={() => {setShowClearWarning(!showClearWarning)}} disabled={dice.length === 0}>
                     Clear
                 </button>
 
@@ -90,19 +48,19 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
                 <div className="relative flex space-x-2">
                     {
                         totals.length > 0 && (
-                            <button className="pointer-events-auto bg-gray-600 text-white p-2 rounded-lg hover:bg-purple-500" onClick={() => setShowTotals(!showTotals)}>
+                            <button className="pointer-events-auto bg-gray-600 text-white px-2 py-1 rounded-lg hover:bg-purple-500" onClick={() => setShowTotals(!showTotals)}>
                                 { showTotals ? 'Hide' : 'Show'} History
                             </button>
                         )
                     }
 
-                    <div className="text-gray-900 rounded-lg p-2 bg-white ">
+                    <div className="text-gray-900 rounded-lg px-2 py-1 bg-white ">
                         Total: {total}
                     </div>
 
                     {
                         showTotals && (
-                            <div className="absolute bottom-[calc(100%+30px)] right-0 flex items-end flex-col space-y-2">
+                            <div className="absolute top-[calc(100%+20px)] right-0 flex items-end flex-col-reverse gap-2">
                                 {
                                     totals.map((total, index) => {
 
@@ -120,6 +78,42 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
                             </div>
                         )
                     }
+                </div>
+            </div>
+
+            {/* Clear Warning */}
+            { showClearWarning && (
+                <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 bg-opacity-50 rounded-lg py-4 px-8 text-center">
+                    <h2 className="text-white text-2xl">Are You Sure?</h2>
+                    <p className="text-gray-300 text-md max-w-xs">This will clear all dice from the board, but your total will be saved in the history.</p>
+                    <div className="flex space-x-2 w-full justify-center mt-4">
+                        <button className="pointer-events-auto bg-red-700 text-white px-4 py-1 rounded-lg hover:bg-red-400" onClick={() => { clearDice(); setShowClearWarning(false) }}>
+                            Yes
+                        </button>
+                        <button className="pointer-events-auto bg-gray-600 text-white px-4 py-1 rounded-lg hover:bg-purple-500" onClick={() => setShowClearWarning(false)}>
+                            No
+                        </button>
+                    </div>
+                </div>
+            )}
+
+
+            {/* Dice Button Row */}
+            <div className="absolute w-full bottom-0 p-4 flex items-center justify-center z-20">
+                <div className='flex space-x-1 md:space-x-4'>
+                    {
+                        availableDice.map((die, index) => (
+                            <button 
+                                className={`pointer-events-auto h-12 h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
+                                disabled={throwingDice}
+                                onClick={() => throwDice(die)}
+                                key={index}
+                                >
+                                D{die}
+                            </button>
+                        ))
+                    }
+
                 </div>
             </div>
         </div>

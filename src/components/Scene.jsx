@@ -38,7 +38,7 @@ export default function Scene() {
 
     return (
         <>
-            <div className="h-[calc(100%-70px)]">
+            <div className="h-[calc(100%-48px)] top-[48px] relative">
                 <Canvas
                     camera={{ position: [0, 10, 0], fov: 50 }}
                     shadows
