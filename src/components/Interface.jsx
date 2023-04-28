@@ -39,46 +39,50 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
     return (
         <div className="absolute inset-0 pointer-events-none">
             {/* Info Bar */}
-            <div className='absolute top-0 left-0 p-2 w-full flex justify-between bg-gray-900'>
-                <button className='pointer-events-auto px-2 py-1 bg-red-700 rounded-lg text-white hover:bg-red-400' onClick={() => {setShowClearWarning(!showClearWarning)}} disabled={dice.length === 0}>
-                    Clear
-                </button>
+            <div className='absolute top-0 left-0 p-2 w-full  bg-gray-900'>
 
+                <div className="flex justify-between w-full max-w-5xl m-auto">
 
-                <div className="relative flex space-x-2">
-                    {
-                        totals.length > 0 && (
-                            <button className="pointer-events-auto bg-gray-600 text-white px-2 py-1 rounded-lg hover:bg-purple-500" onClick={() => setShowTotals(!showTotals)}>
-                                { showTotals ? 'Hide' : 'Show'} History
-                            </button>
-                        )
-                    }
+                    <div className="relative flex">
+                        <div className="text-gray-900 rounded-lg px-2 py-1 bg-white ">
+                            Total: {total}
+                        </div>
 
-                    <div className="text-gray-900 rounded-lg px-2 py-1 bg-white ">
-                        Total: {total}
+                        {
+                            totals.length > 0 && (
+                                <button className="pointer-events-auto ml-2 bg-gray-600 text-white px-2 py-1 rounded-lg hover:bg-purple-500" onClick={() => setShowTotals(!showTotals)}>
+                                    { showTotals ? 'Hide' : 'Show'} History
+                                </button>
+                            )
+                        }
+
+                        {
+                            showTotals && (
+                                <div className="pointer-events-auto absolute top-[calc(100%+20px)] left-0 ml-0 flex flex-col-reverse gap-2 max-h-60 overflow-y-scroll">
+                                    {
+                                        totals.map((total, index) => {
+
+                                            const diceString = calculateDiceRolls(total.dice)
+
+                                            return (
+                                                <div key={index} className="w-max bg-gray-800 py-1 px-4 rounded-full text-white tracking-wider">
+                                                    { diceString }- Total: {total.total}
+                                                </div>
+
+                                            )
+                                        })
+                                    }
+
+                                </div>
+                            )
+                        }
                     </div>
 
-                    {
-                        showTotals && (
-                            <div className="absolute top-[calc(100%+20px)] right-0 flex items-end flex-col-reverse gap-2">
-                                {
-                                    totals.map((total, index) => {
-
-                                        const diceString = calculateDiceRolls(total.dice)
-
-                                        return (
-                                            <div key={index} className="w-max bg-gray-800 py-1 px-4 rounded-full text-white tracking-wider">
-                                                { diceString }- Total: {total.total}
-                                            </div>
-
-                                        )
-                                    })
-                                }
-
-                            </div>
-                        )
-                    }
+                    <button className='pointer-events-auto px-2 py-1 bg-red-700 rounded-lg text-white hover:bg-red-400' onClick={() => {setShowClearWarning(!showClearWarning)}} disabled={dice.length === 0}>
+                        Clear
+                    </button>
                 </div>
+
             </div>
 
             {/* Clear Warning */}
