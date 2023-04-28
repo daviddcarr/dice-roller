@@ -39,7 +39,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
     return (
         <div className="absolute inset-0 pointer-events-none">
             {/* Info Bar */}
-            <div className='absolute top-0 left-0 p-2 w-full  bg-gray-900'>
+            <div className='top-bar absolute top-0 left-0 p-2 w-full bg-gray-900'>
 
                 <div className="flex justify-between w-full max-w-5xl m-auto">
 
@@ -58,14 +58,14 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
 
                         {
                             showTotals && (
-                                <div className="pointer-events-auto absolute top-[calc(100%+20px)] left-0 ml-0 flex flex-col-reverse gap-2 max-h-60 overflow-y-scroll">
+                                <div className="pointer-events-auto history-dropdown shadow-lg absolute top-[calc(100%+20px)] py-4 px-6 left-0 ml-0 flex flex-col-reverse gap-2 max-h-60 overflow-y-scroll">
                                     {
                                         totals.map((total, index) => {
 
                                             const diceString = calculateDiceRolls(total.dice)
 
                                             return (
-                                                <div key={index} className="w-max bg-gray-800 py-1 px-4 rounded-full text-white tracking-wider">
+                                                <div key={index} className="w-max rounded-full text-gray-900 tracking-wider">
                                                     { diceString }- Total: {total.total}
                                                 </div>
 
@@ -87,7 +87,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
 
             {/* Clear Warning */}
             { showClearWarning && (
-                <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 bg-opacity-50 rounded-lg py-4 px-8 text-center">
+                <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 bg-opacity-50 backdrop-blur-md rounded-lg py-4 px-8 text-center">
                     <h2 className="text-white text-2xl">Are You Sure?</h2>
                     <p className="text-gray-300 text-md max-w-xs">This will clear all dice from the board, but your total will be saved in the history.</p>
                     <div className="flex space-x-2 w-full justify-center mt-4">
@@ -108,7 +108,7 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
                     {
                         availableDice.map((die, index) => (
                             <button 
-                                className={`pointer-events-auto h-12 h-12 w-12 ${ throwingDice ? 'bg-gray-400 text-gray-500' : 'bg-gray-800 hover:bg-purple-500 text-white' } rounded-full`}
+                                className={`pointer-events-auto button-round h-12 h-12 w-12 ${ throwingDice ? 'text-gray-500' : ' hover:brightness-90 text-white' } rounded-full`}
                                 disabled={throwingDice}
                                 onClick={() => throwDice(die)}
                                 key={index}

@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.top-bar {
+    background-image: url(../public/ui/Toolbar_L.png), url(../public/ui/Toolbar_R.png), url(../public/ui/Toolbar_C.png);
+    background-position: left, right, center;
+    background-repeat: no-repeat, no-repeat, repeat-x;
+}
+
+.button-round {
+    background-image: url(../public/ui/Button_round.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.history-dropdown {
+    background-image: url(../public/ui/Border_tl.png), url(../public/ui/Border_tr.png), url(../public/ui/Border_bl.png), url(../public/ui/Border_br.png), url(../public/ui/Border_t.png), url(../public/ui/Border_b.png), url(../public/ui/Border_l.png), url(../public/ui/Border_r.png), url(../public/ui/Paper_bg.jpg);
+    background-position: top left, top right, bottom left, bottom right, top center, bottom center, left center, right center, top center;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat-x, repeat-x, repeat-y, repeat-y, no-repeat;
+}
