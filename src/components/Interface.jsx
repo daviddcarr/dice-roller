@@ -39,9 +39,9 @@ export default function Interface({ throwingDice, throwDice, clearDice, total, t
     return (
         <div className="absolute inset-0 pointer-events-none">
             {/* Info Bar */}
-            <div className='top-bar absolute top-0 left-0 p-2 w-full bg-gray-900'>
+            <div className='top-bar absolute top-0 left-0 w-full bg-gray-900'>
 
-                <div className="flex justify-between w-full max-w-5xl m-auto">
+                <div className="flex justify-between w-full max-w-5xl m-auto py-2 px-3">
 
                     <div className="relative flex">
                         <div className="text-gray-900 rounded-lg px-2 py-1 bg-white ">
