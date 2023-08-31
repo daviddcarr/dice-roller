@@ -53,7 +53,7 @@ export default function Scene() {
                         shadow-camera-bottom={ - 10 }
                         shadow-camera-left={ - 10 }
                         />
-                    <Environment preset={'apartment'} />
+                    <Environment files={'photo_studio_loft_hall_2k.hdr'}/>
                     {/* <OrbitControls /> */}
 
                     <EffectComposer>
